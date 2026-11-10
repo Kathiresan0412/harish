@@ -1,13 +1,19 @@
 import type { Metadata } from "next";
 import { connectToDatabase } from "@/lib/db";
-import { defaultTheme, themeStyle } from "@/lib/theme";
+import { defaultTheme, themeStyle, type ThemeColors } from "@/lib/theme";
 import { ThemeSettings } from "@/models/ThemeSettings";
 import "./globals.css";
+
+type Theme = {
+  colors: ThemeColors;
+  font: "sans" | "serif" | "mono";
+  buttonStyle: "rounded" | "square";
+};
 
 export const metadata: Metadata = { title: "Harbor Auto Spa | Car care, made easy", description: "Thoughtful car wash and detailing, right at home." };
 
 export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  let theme = defaultTheme;
+  let theme: Theme = defaultTheme;
   if (process.env.MONGODB_URI) {
     try {
       await connectToDatabase();
