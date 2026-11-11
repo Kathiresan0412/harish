@@ -4,7 +4,7 @@ import { connectToDatabase } from "../lib/db";
 import { User } from "../models/User";
 import { ThemeSettings } from "../models/ThemeSettings";
 import { BusinessSettings } from "../models/BusinessSettings";
-import { AvailabilitySettings } from "../models/Operations";
+import { AvailabilitySettings, Counter } from "../models/Operations";
 import { Service, VehicleType } from "../models/catalog";
 import { defaultTheme } from "../lib/theme";
 
@@ -32,6 +32,7 @@ async function seed() {
     await Service.findOneAndUpdate({ slug: service.slug }, { $setOnInsert: { ...service, prices } }, { upsert: true, runValidators: true });
   }
   await AvailabilitySettings.findOneAndUpdate({ key: "default" }, { $setOnInsert: { key: "default", timezone: "Asia/Colombo", weeklyHours: [1, 2, 3, 4, 5, 6].map((day) => ({ day, open: true, start: "08:00", end: "17:00" })).concat([{ day: 0, open: false, start: "08:00", end: "17:00" }]), slotIntervalMinutes: 30, bufferMinutes: 0, capacity: 1, minimumNoticeMinutes: 120, maximumAdvanceDays: 30, pendingHoldMinutes: 120, autoReleasePending: true } }, { upsert: true, runValidators: true });
+  await Counter.findOneAndUpdate({ key: "booking" }, { $setOnInsert: { key: "booking", sequence: 0 } }, { upsert: true, runValidators: true });
   console.log(`Seed complete for owner ${email}`);
   process.exit(0);
 }

@@ -1,0 +1,12 @@
+"use client";
+
+import { Bar, BarChart, CartesianGrid, Cell, Pie, PieChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+
+type IncomePoint = { month: string; amount: number };
+type StatusPoint = { name: string; count: number };
+const colors = ["#087E8B", "#E5A93D", "#26734D", "#D65A31", "#9A716A", "#7E8B85"];
+const money = (value: number) => new Intl.NumberFormat("en-LK", { style: "currency", currency: "LKR", maximumFractionDigits: 0 }).format(value / 100);
+
+export function AdminDashboardCharts({ income, statuses }: { income: IncomePoint[]; statuses: StatusPoint[] }) {
+  return <div className="dashboard-chart-grid"><section className="dashboard-chart-card"><div><span className="eyebrow">PAYMENTS RECEIVED</span><h2>Monthly income</h2></div><div className="dashboard-chart-area"><ResponsiveContainer width="100%" height="100%"><BarChart data={income} margin={{ top: 12, right: 6, left: 4, bottom: 0 }}><CartesianGrid stroke="#edf1ee" vertical={false} /><XAxis dataKey="month" axisLine={false} tickLine={false} tick={{ fill: "#89958f", fontSize: 10 }} /><YAxis axisLine={false} tickLine={false} width={54} tick={{ fill: "#9aa49f", fontSize: 9 }} tickFormatter={(value: number) => value >= 100000 ? `${Math.round(value / 100000)}L` : `${Math.round(value / 1000)}k`} /><Tooltip formatter={(value) => money(Number(value ?? 0))} contentStyle={{ border: "1px solid #e6ece8", borderRadius: 9, fontSize: 11 }} /><Bar dataKey="amount" fill="#087E8B" radius={[5, 5, 0, 0]} maxBarSize={42} /></BarChart></ResponsiveContainer></div></section><section className="dashboard-chart-card status-chart-card"><div><span className="eyebrow">BOOKING MIX</span><h2>Current statuses</h2></div><div className="status-chart-content"><div className="status-chart-area"><ResponsiveContainer width="100%" height="100%"><PieChart><Pie data={statuses} dataKey="count" nameKey="name" innerRadius="57%" outerRadius="82%" paddingAngle={3} stroke="none">{statuses.map((entry, index) => <Cell key={entry.name} fill={colors[index % colors.length]} />)}</Pie><Tooltip formatter={(value) => Number(value ?? 0)} contentStyle={{ border: "1px solid #e6ece8", borderRadius: 9, fontSize: 11 }} /></PieChart></ResponsiveContainer></div><div className="status-legend">{statuses.map((status, index) => <div key={status.name}><i style={{ background: colors[index % colors.length] }} /><span>{status.name}</span><strong>{status.count}</strong></div>)}</div></div></section></div>;
+}
