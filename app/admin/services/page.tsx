@@ -24,7 +24,7 @@ export default async function ServicesAdminPage() {
   }
   const normalizedVehicles: CatalogVehicle[] = vehicles.map((vehicle) => ({ id: String(vehicle._id), name: String(vehicle.name ?? ""), sortOrder: Number(vehicle.sortOrder ?? 0), active: Boolean(vehicle.active) }));
   const normalizeItems = (items: Array<Record<string, unknown>>): CatalogItem[] => items.map((item) => ({
-    id: String(item._id), name: String(item.name ?? ""), description: String(item.description ?? ""), photoUrl: String(item.photoUrl ?? ""), durationMinutes: Number(item.durationMinutes ?? 0),
+    id: String(item._id), name: String(item.name ?? ""), nameTa: String(item.nameTa ?? ""), nameSi: String(item.nameSi ?? ""), description: String(item.description ?? ""), descriptionTa: String(item.descriptionTa ?? ""), descriptionSi: String(item.descriptionSi ?? ""), photoUrl: String(item.photoUrl ?? ""), durationMinutes: Number(item.durationMinutes ?? 0),
     sortOrder: Number(item.sortOrder ?? 0), active: Boolean(item.active),
     prices: Array.isArray(item.prices) ? item.prices.map((price) => { const row = price as Record<string, unknown>; return { vehicleType: String(row.vehicleType), amount: Number(row.amount ?? 0) }; }) : [],
   }));

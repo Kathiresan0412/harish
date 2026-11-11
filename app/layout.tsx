@@ -3,6 +3,7 @@ import { cache } from "react";
 import { connectToDatabase } from "@/lib/db";
 import { defaultTheme, themeStyle, type ThemeColors } from "@/lib/theme";
 import { ThemeSettings } from "@/models/ThemeSettings";
+import { LanguageProvider } from "@/components/LanguageProvider";
 import "./globals.css";
 
 type Theme = {
@@ -39,5 +40,5 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   const theme = await getSiteTheme();
   const fontFamily = theme.font === "serif" ? "Georgia, serif" : theme.font === "mono" ? "ui-monospace, monospace" : "Arial, sans-serif";
-  return <html lang="en"><body style={{ ...themeStyle(theme.colors), fontFamily }} data-button-style={theme.buttonStyle} data-font={theme.font}>{children}</body></html>;
+  return <html lang="en"><body style={{ ...themeStyle(theme.colors), fontFamily }} data-button-style={theme.buttonStyle} data-font={theme.font}><LanguageProvider>{children}</LanguageProvider></body></html>;
 }

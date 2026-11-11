@@ -40,8 +40,8 @@ async function uniqueSlug(name: string, model: typeof Service | typeof Addon, id
 
 export async function saveService(formData: FormData): Promise<void> {
   await requireOwner();
-  const parsed = z.object({ id: z.string().optional(), name: z.string().trim().min(2).max(80), description: z.string().trim().max(500), photoUrl: z.string().url().or(z.literal("")), durationMinutes: positiveInt.max(600), sortOrder: nonNegativeInt, active: z.enum(["true", "false"]) }).parse({
-    id: text(formData.get("id")) || undefined, name: text(formData.get("name")), description: text(formData.get("description")), photoUrl: text(formData.get("photoUrl")), durationMinutes: text(formData.get("durationMinutes")), sortOrder: text(formData.get("sortOrder")) || "0", active: text(formData.get("active")) || "true",
+  const parsed = z.object({ id: z.string().optional(), name: z.string().trim().min(2).max(80), nameTa: z.string().trim().max(80), nameSi: z.string().trim().max(80), description: z.string().trim().max(500), descriptionTa: z.string().trim().max(500), descriptionSi: z.string().trim().max(500), photoUrl: z.string().url().or(z.literal("")), durationMinutes: positiveInt.max(600), sortOrder: nonNegativeInt, active: z.enum(["true", "false"]) }).parse({
+    id: text(formData.get("id")) || undefined, name: text(formData.get("name")), nameTa: text(formData.get("nameTa")), nameSi: text(formData.get("nameSi")), description: text(formData.get("description")), descriptionTa: text(formData.get("descriptionTa")), descriptionSi: text(formData.get("descriptionSi")), photoUrl: text(formData.get("photoUrl")), durationMinutes: text(formData.get("durationMinutes")), sortOrder: text(formData.get("sortOrder")) || "0", active: text(formData.get("active")) || "true",
   });
   const prices = await pricesFromForm(formData);
   const slug = await uniqueSlug(parsed.name, Service, parsed.id ?? "");
@@ -56,8 +56,8 @@ export async function saveService(formData: FormData): Promise<void> {
 
 export async function saveAddon(formData: FormData): Promise<void> {
   await requireOwner();
-  const parsed = z.object({ id: z.string().optional(), name: z.string().trim().min(2).max(80), description: z.string().trim().max(500), durationMinutes: z.coerce.number().int().min(0).max(600), sortOrder: nonNegativeInt, active: z.enum(["true", "false"]) }).parse({
-    id: text(formData.get("id")) || undefined, name: text(formData.get("name")), description: text(formData.get("description")), durationMinutes: text(formData.get("durationMinutes")) || "0", sortOrder: text(formData.get("sortOrder")) || "0", active: text(formData.get("active")) || "true",
+  const parsed = z.object({ id: z.string().optional(), name: z.string().trim().min(2).max(80), nameTa: z.string().trim().max(80), nameSi: z.string().trim().max(80), description: z.string().trim().max(500), descriptionTa: z.string().trim().max(500), descriptionSi: z.string().trim().max(500), durationMinutes: z.coerce.number().int().min(0).max(600), sortOrder: nonNegativeInt, active: z.enum(["true", "false"]) }).parse({
+    id: text(formData.get("id")) || undefined, name: text(formData.get("name")), nameTa: text(formData.get("nameTa")), nameSi: text(formData.get("nameSi")), description: text(formData.get("description")), descriptionTa: text(formData.get("descriptionTa")), descriptionSi: text(formData.get("descriptionSi")), durationMinutes: text(formData.get("durationMinutes")) || "0", sortOrder: text(formData.get("sortOrder")) || "0", active: text(formData.get("active")) || "true",
   });
   const prices = await pricesFromForm(formData);
   const slug = await uniqueSlug(parsed.name, Addon, parsed.id ?? "");
