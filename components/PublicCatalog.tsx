@@ -1,6 +1,7 @@
 import { Clock3, Sparkles, Waves } from "lucide-react";
 import Image from "next/image";
-import { formatLkr, type PublicCatalogItem, type PublicVehicle } from "@/lib/public-catalog";
+import type { PublicCatalogItem, PublicVehicle } from "@/lib/public-catalog";
+import { formatLkr } from "@/lib/money";
 
 function PriceList({ item, vehicles }: { item: PublicCatalogItem; vehicles: PublicVehicle[] }) {
   const prices = new Map(item.prices.map((price) => [price.vehicleType, price.amount]));

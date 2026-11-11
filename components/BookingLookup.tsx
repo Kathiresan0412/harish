@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { CalendarDays, Check, Clock3, LoaderCircle, Search } from "lucide-react";
-import { formatLkr } from "@/lib/public-catalog";
+import { formatLkr } from "@/lib/money";
 
 type BookingResult = { reference: string; status: string; date: string; startTime: string; endTime: string; vehicleType: string; vehicleNumber: string; items: Array<{ name: string; kind: string }>; totalPrice: number; paymentStatus: string; customerRequest: null | { type: string; status: string; requestedDate: string | null; requestedStartTime: string } };
 

@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, CalendarDays, Check, ChevronLeft, ChevronRight, Clock3, Droplets, LoaderCircle } from "lucide-react";
 import type { PublicCatalogItem, PublicVehicle } from "@/lib/public-catalog";
-import { formatLkr } from "@/lib/public-catalog";
+import { formatLkr } from "@/lib/money";
 
 type BookingSettings = { timezone: string; maximumAdvanceDays: number };
 type Slot = { startTime: string; endTime: string };

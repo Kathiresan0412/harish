@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import { ArrowLeft, CalendarDays, LoaderCircle } from "lucide-react";
 import type { CatalogItem, CatalogPrice, CatalogVehicle } from "@/components/CatalogManager";
 import { createManualBooking } from "@/app/actions/bookings";
-import { formatLkr } from "@/lib/public-catalog";
+import { formatLkr } from "@/lib/money";
 
 type ManualItem = Pick<CatalogItem, "id" | "name" | "description" | "durationMinutes" | "prices">;
 type Slot = { startTime: string; endTime: string };
